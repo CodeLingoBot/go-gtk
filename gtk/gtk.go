@@ -4968,6 +4968,14 @@ func NewTreeViewColumnWithAttributes(title string, cell ICellRenderer, attribute
 	return newTreeViewColumn(
 		C._gtk_tree_view_column_new_with_attributes(gstring(ptitle), cell.ToCellRenderer(), gstring(pattribute), gint(column)))
 }
+*/func NewTreeViewColumnWithAttributes(title string, cell ICellRenderer, attribute string, column int) *TreeViewColumn {
+	ptitle := C.CString(title)
+	defer cfree(ptitle)
+	pattribute := C.CString(attribute)
+	defer cfree(pattribute)
+	return newTreeViewColumn(
+		C._gtk_tree_view_column_new_with_attributes(gstring(ptitle), cell.ToCellRenderer(), gstring(pattribute), gint(column)))
+}
 */
 func NewTreeViewColumnWithAttributes(title string, cell ICellRenderer, attributes ...interface{}) *TreeViewColumn {
 	if len(attributes)%2 != 0 {
@@ -5214,7 +5222,7 @@ func (v *TreeView) GetColumns() []*TreeViewColumn {
 	return columns
 }
 
-// Remove column from TreeView and return number of existing columns
+// RemoveColumn removes column from TreeView and return number of existing columns
 func (v *TreeView) RemoveColumn(c *TreeViewColumn) int {
 	return int(C.gtk_tree_view_remove_column(TREE_VIEW(v), c.GTreeViewColumn))
 }

@@ -852,7 +852,7 @@ func _go_glib_callback(cbi *C.callback_info) {
 	}
 }
 
-// Return the handler call_id to use with HandlerBlock, HandlerUnblock and
+// Connect returns the handler call_id to use with HandlerBlock, HandlerUnblock and
 // HandlerDisconnect.
 //
 func (v *GObject) Connect(s string, f interface{}, datas ...interface{}) int {
